@@ -1,4 +1,3 @@
-TESTTTTT222222
 var ticTacArray = [0,0,0,0,0,0,0,0,0];
 var ticTacToeMatrix = [['-','-','-'],
                            ['-','-','-'],
@@ -169,9 +168,16 @@ $(function() {
         var compPiece = 'O';
         if (ply === 1)
         {
-            updateBoard(1,1,"blue","O",".five");
-            playersTurn = "player1";
-            console.log("ply is one");
+            if($(".five").text()!=='X')
+            {
+                updateBoard(1,1,"blue","O",".five");
+                // updateBoard(0,1,"blue","O",".four");
+            }
+            else
+            {
+                updateBoard(0,0,"blue","O",".one");                
+            }
+            playersTurn = "player1";  
         }
         else if (!gameOver)
         {
@@ -183,7 +189,7 @@ $(function() {
                 var x = possibleArray[0];
                 var y = possibleArray[1];
                 ticTacToeMatrix[x][y] = compPiece;
-                console.log("This is what should be changed ",x,y);
+                // console.log("This is what should be changed ",x,y);
                 var display = findCorrespondingElement(x,y);
                 display.text("O");
                 display.css("color","blue");
@@ -192,21 +198,17 @@ $(function() {
             else if (typeof(possibleArray) ==='undefined')
             {
                 playersTurn = "player1";
-                console.log("Ply wasn't one");
                 if (ticTacToeMatrix[0][0] !== 'X' && ticTacToeMatrix[0][0] !== 'O')
                 {
                     updateBoard(0,0,"blue",'O',".one");
-                    console.log("0 0 should be changed");
                 }
                 else if (ticTacToeMatrix[2][0] !== 'X' && ticTacToeMatrix[2][0] !== 'O')
                 {
                     updateBoard(2,0,"blue",'O',".three");
-                    console.log("2 0 should be changed");
                 }
                 else if (ticTacToeMatrix[2][2] !== 'X' && ticTacToeMatrix[2][2] !== 'O')
                 {
                     updateBoard(2,2,"blue",'O',".nine");
-                    console.log("2 2 should be changed");
                 }
                 else if (ticTacToeMatrix[0][2] !== 'X' && ticTacToeMatrix[0][2] !== 'O')
                 {
@@ -232,62 +234,76 @@ $(function() {
     }
     function checkTwoInARow()
     {
-        var checkRowResult0 = checkRow(0,0,1,2);
-        var checkRowResult1 = checkRow(0,0,2,1);//
-        var checkRowResult2 = checkRow(0,1,2,0);
-        var checkRowResult3 = checkRow(1,0,1,2);
-        var checkRowResult4 = checkRow(1,0,2,1); //
-        var checkRowResult5 = checkRow(1,1,2,0);
-        var checkRowResult6 = checkRow(2,0,1,2);
-        var checkRowResult7 = checkRow(2,0,2,1);
-        var checkRowResult8 = checkRow(2,1,2,0);
+        for(var i = 0; i < 3; i ++)
+        {
+            var checkRowResult0 = checkRow(i,0,1,2);
+            var checkRowResult1 = checkRow(i,0,2,1);
+            var checkRowResult2 = checkRow(i,1,2,0);
+            var checkColumnResult0 = checkColumn(i,0,1,2);
+            var checkColumnResult1 = checkColumn(i,0,2,1);
+            var checkColumnResult2 = checkColumn(i,1,2,0);
+            var checkDiagonalResult0 = checkDiagonal(0,0,1,1,2,2);
+            var checkDiagonalResult1 = checkDiagonal(2,0,1,1,0,2);
+            var checkDiagonalResult2 = checkDiagonal(0,0,2,2,1,1);
+            var checkDiagonalResult3 = checkDiagonal(2,0,0,2,1,1);
+            var checkDiagonalResult4 = checkDiagonal(1,1,2,2,0,0);
+            var checkDiagonalResult3 = checkDiagonal(1,1,0,2,2,0);
 
-        //index 0-2, 
-
-        if (checkRowResult0)
-        {
-            console.log("0");
-            return checkRowResult0;
-        }
-        else if (checkRowResult1)
-        {
-            console.log("1");
-            return checkRowResult1;
-        }
-        else if (checkRowResult2)
-        {
-            console.log("2");
-            return checkRowResult2;
-        }
-        else if (checkRowResult3)
-        {
-            console.log("3");
-            return checkRowResult3;
-        }
-        else if (checkRowResult4)
-        {
-            console.log("4");
-            return checkRowResult4;
-        }
-        else if (checkRowResult5)
-        {
-            console.log("5");
-            return checkRowResult5;
-        }
-        else if (checkRowResult6)
-        {
-            console.log("6");
-            return checkRowResult6;
-        }
-        else if (checkRowResult7)
-        {
-            console.log("7");
-            return checkRowResult7;
-        }
-        else if (checkRowResult8)
-        {
-            console.log("8");
-            return checkRowResult8;
+            if (checkRowResult0)
+            {
+                console.log("0");
+                return checkRowResult0;
+            }
+            else if (checkRowResult1)
+            {
+                console.log("1");
+                return checkRowResult1;
+            }
+            else if (checkRowResult2)
+            {
+                console.log("2");
+                return checkRowResult2;
+            }
+            else if (checkColumnResult0)
+            {
+                console.log("3");
+                return checkColumnResult0;
+            }
+            else if (checkColumnResult1)
+            {
+                console.log("4");
+                return checkColumnResult1;
+            }
+            else if (checkColumnResult2)
+            {
+                console.log("5");
+                return checkColumnResult2;
+            }
+            else if (checkDiagonalResult0)
+            {
+                console.log("6");
+                return checkDiagonalResult0;
+            }
+            else if (checkDiagonalResult1)
+            {
+                console.log("7");
+                return checkDiagonalResult1;
+            }
+            else if (checkDiagonalResult2)
+            {
+                console.log("7");
+                return checkDiagonalResult2;
+            }
+            else if (checkDiagonalResult3)
+            {
+                console.log("8");
+                return checkDiagonalResult3;
+            }
+            else if (checkDiagonalResult4)
+            {
+                console.log("9");
+                return checkDiagonalResult4;
+            }
         }
 
         function checkRow(index,subIndex1,subIndex2,subIndex3)
@@ -297,6 +313,21 @@ $(function() {
                 return [subIndex3,index];
             }
         }
+        function checkColumn(index,subIndex1,subIndex2,subIndex3)
+        {
+            if (ticTacToeMatrix[index][subIndex1] === 'X' && ticTacToeMatrix [index][subIndex2] ==='X' && ticTacToeMatrix[index][subIndex3] !=='O')
+            {
+                return [index,subIndex3];
+            }
+        }
+        function checkDiagonal(index1,index2,index3,index4,index5,index6)
+        {
+            if (ticTacToeMatrix[index1][index2] === 'X' && ticTacToeMatrix [index3][index4] ==='X' && ticTacToeMatrix[index5][index6] !=='O')
+            {
+                return [index5,index6];
+            }
+        }
+
     }
     function isCatsGame(matrix)
     {

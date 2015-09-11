@@ -51,12 +51,7 @@
     width: 100%;
     font-size: 100px;
 }
-        /*checkRow(0);
-        function checkRow(index)
-        {
-            if (ticTacToeMatrix[0][index] === 'X' && ticTacToeMatrix [1][index] ==='X' && ticTacToeMatrix[2][index] !=='O')
-            {
-                console.log("(2,0) needs an 'O' otherwise player 1 wins!!");
-                return [2,0];
-            }   
-        }*/
+.restart-button{
+    text-align: center;
+    width: 100%;
+}

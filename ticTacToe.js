@@ -8,8 +8,11 @@ $(function() {
     console.log("test");
 
     var playAgainstComputer = prompt("Play against the Computer?");
-
-
+               
+    if (playAgainstComputer === "yes")
+    {
+        $(".player").hide();  
+    }
     $(".tic-tac-toe").click(function()
     {   if ($(this).text()!=="X" && $(this).text()!=="O" && gameOver === false)
         {
@@ -31,7 +34,8 @@ $(function() {
                     var playersChoice = 'O';
                     $(this).css("color","blue");
                     playersTurn = "player1";  
-                }                             
+                }
+
             }
             ticTacToeMatrix[col][row] = playersChoice;
             $(this).text(playersChoice);
@@ -56,10 +60,6 @@ $(function() {
             $(".player1").css("text-decoration","underline");
             $(".player2").css("text-decoration","none");                  
         }
-    }
-    function makeMatrix(array)
-    {
-        // make function that takes in a number and returns where its x y position is
     }
     function gameFinished(player)
     {
@@ -180,7 +180,6 @@ $(function() {
         }
         else if (ply === 3 && ((ticTacToeMatrix[0][0] === 'X' && ticTacToeMatrix[2][2] === 'X') || (ticTacToeMatrix[2][0] === 'X' && ticTacToeMatrix[0][2] === 'X')))
         {
-            console.log("sdfsdf");
             updateBoard(1,2,"blue","O",".eight");
             playersTurn = "player1";
 
@@ -195,7 +194,6 @@ $(function() {
                 var x = possibleArray[0];
                 var y = possibleArray[1];
                 ticTacToeMatrix[x][y] = compPiece;
-                // console.log("This is what should be changed ",x,y);
                 var display = findCorrespondingElement(x,y);
                 display.text("O");
                 display.css("color","blue");

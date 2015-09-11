@@ -3,11 +3,11 @@ var ticTacToeMatrix = [['-','-','-'],
                            ['-','-','-'],
                            ['-','-','-']];
 var playersTurn = "player1";
-
+var gameOver = false;
 $(function() {
     console.log("test");
-    var gameOver = false;
-    var playAgainstComputer = prompt("Play against another playAgainstComputer?");
+
+    var playAgainstComputer = prompt("Play against the Computer?");
 
 
     $(".tic-tac-toe").click(function()
@@ -17,12 +17,13 @@ $(function() {
             var col = $(this).data("column");
 
             underlinePlayer(playersTurn);
+            
+
             if (playersTurn === "player1")
             {
                 var playersChoice = 'X';
                 $(this).css("color","red");
                 playersTurn = "player2";
-                monger = "Mongerrrrrrrr!!!";
             }
             else if (playersTurn === "player2")
             {
@@ -36,6 +37,7 @@ $(function() {
             ticTacToeMatrix[col][row] = playersChoice;
             $(this).text(playersChoice);
             checkIfThreeInARow();
+            isCatsGame(ticTacToeMatrix);    
             if(playAgainstComputer === 'yes')
             {
                 ai($(this));
@@ -43,23 +45,17 @@ $(function() {
         }
     });
 
-    function updateBoard(col,row,playersChoice,thiss)
-    {
-        ticTacToeMatrix[col][row] = playersChoice;
-        $(thiss).text(playersChoice);
-        checkIfThreeInARow();
-    }
     function underlinePlayer(player)
     {
         if (player === 'player1')
         {
-            $(".player1").css("text-decoration","underline");
-            $(".player2").css("text-decoration","none");                        
+            $(".player2").css("text-decoration","underline");
+            $(".player1").css("text-decoration","none");                        
         }
         else if(player === 'player2')
         {
-            $(".player2").css("text-decoration","underline");
-            $(".player1").css("text-decoration","none");                  
+            $(".player1").css("text-decoration","underline");
+            $(".player2").css("text-decoration","none");                  
         }
     }
     function makeMatrix(array)
@@ -172,12 +168,11 @@ $(function() {
         var compPiece = 'O';
         if (ply === 1)
         {
-            ticTacToeMatrix[1][1] = compPiece;
-            $(".five").text("O");
-            $(".five").css("color","blue");
+            updateBoard(1,1,"blue","O",".five");
             playersTurn = "player1";
+            console.log("ply is one");
         }
-        else
+        else if (!gameOver)
         {
             console.log("Ply move is " + ply);
             var possibleArray = checkTwoInARow();
@@ -187,38 +182,142 @@ $(function() {
                 var x = possibleArray[0];
                 var y = possibleArray[1];
                 ticTacToeMatrix[x][y] = compPiece;
-               thiss.text("O");
-               thiss.css("color","blue");
-                playersTurn = "player1";     
+                console.log("This is what should be changed ",x,y);
+                var display = findCorrespondingElement(x,y);
+                display.text("O");
+                display.css("color","blue");
+                playersTurn = "player1";    
+            }
+            else if (typeof(possibleArray) ==='undefined')
+            {
+                playersTurn = "player1";
+                console.log("Ply wasn't one");
+                if (ticTacToeMatrix[0][0] !== 'X' && ticTacToeMatrix[0][0] !== 'O')
+                {
+                    updateBoard(0,0,"blue",'O',".one");
+                    console.log("0 0 should be changed");
+                }
+                else if (ticTacToeMatrix[2][0] !== 'X' && ticTacToeMatrix[2][0] !== 'O')
+                {
+                    updateBoard(2,0,"blue",'O',".three");
+                    console.log("2 0 should be changed");
+                }
+                else if (ticTacToeMatrix[2][2] !== 'X' && ticTacToeMatrix[2][2] !== 'O')
+                {
+                    updateBoard(2,2,"blue",'O',".nine");
+                    console.log("2 2 should be changed");
+                }
+                else if (ticTacToeMatrix[0][2] !== 'X' && ticTacToeMatrix[0][2] !== 'O')
+                {
+                    ticTacToeMatrix[0][2] = 'O';
+                    $(".seven").text('O');
+                    $(".seven").css("color","blue");
+                    // updateBoard(0,2,"blue",".seven");
+                }                 
+                else
+                {
+                    playersTurn = "player2";
+                }
             }
         }
     }
+    function updateBoard(col,row,color,playersChoice,thiss)
+    {
+        console.log("column: ",col,"row: ",row, "playersChoice");
+        ticTacToeMatrix[col][row] = playersChoice;
+        $(thiss).text(playersChoice);
+        $(thiss).css("color",color);
+        checkIfThreeInARow();
+    }
     function checkTwoInARow()
     {
-        if (ticTacToeMatrix[0][0] === 'X' && ticTacToeMatrix [1][0] ==='X' && ticTacToeMatrix[2][0] !=='O')
-        {
-            console.log("(2,0) needs an 'O' otherwise player 1 wins!!");
-            return [2,0];
-        }
-        // //checkRow();
-        // function checkRow()
-        // {
-        //      if (case1() === true)
-        //      {
-        //         return true;
-        //      }
-        //     function case1()
-        //     {
-        //         if (ticTacToeMatrix[0][0] = 'X' && ticTacToeMatrix [1][0] ='X')
-        //         {
-        //             return true;
+        var checkRowResult0 = checkRow(0,0,1,2);
+        var checkRowResult1 = checkRow(0,0,2,1);//
+        var checkRowResult2 = checkRow(0,1,2,0);
+        var checkRowResult3 = checkRow(1,0,1,2);
+        var checkRowResult4 = checkRow(1,0,2,1); //
+        var checkRowResult5 = checkRow(1,1,2,0);
+        var checkRowResult6 = checkRow(2,0,1,2);
+        var checkRowResult7 = checkRow(2,0,2,1);
+        var checkRowResult8 = checkRow(2,1,2,0);
 
-        //         }
-        //     }
-        // }
+        if (checkRowResult0)
+        {
+            console.log("0");
+            return checkRowResult0;
+        }
+        else if (checkRowResult1)
+        {
+            console.log("1");
+            return checkRowResult1;
+        }
+        else if (checkRowResult2)
+        {
+            console.log("2");
+            return checkRowResult2;
+        }
+        else if (checkRowResult3)
+        {
+            console.log("3");
+            return checkRowResult3;
+        }
+        else if (checkRowResult4)
+        {
+            console.log("4");
+            return checkRowResult4;
+        }
+        else if (checkRowResult5)
+        {
+            console.log("5");
+            return checkRowResult5;
+        }
+        else if (checkRowResult6)
+        {
+            console.log("6");
+            return checkRowResult6;
+        }
+        else if (checkRowResult7)
+        {
+            console.log("7");
+            return checkRowResult7;
+        }
+        else if (checkRowResult8)
+        {
+            console.log("8");
+            return checkRowResult8;
+        }
+
+        function checkRow(index,subIndex1,subIndex2,subIndex3)
+        {
+            if (ticTacToeMatrix[subIndex1][index] === 'X' && ticTacToeMatrix [subIndex2][index] ==='X' && ticTacToeMatrix[subIndex3][index] !=='O')
+            {
+                return [subIndex3,index];
+            }
+        }
+    }
+    function isCatsGame(matrix)
+    {
+        if (howManyPlys(matrix) === 9)
+        {
+            $(".winner").text("There is no winner");
+            $(".player").css("visibility","hidden");
+        }
 
     }
-
+    function findCorrespondingElement(col,row)
+    {
+        var returny;
+        var rowArray = $("*[data-row]");
+        rowArray.each(function(index,element){
+            var newArray = $(element);
+            if (newArray.data("row") === row && newArray.data("column") === col)
+            {
+                // return newArray;
+                returny = newArray;
+            }
+        });
+        return returny;
+    }   
 });
    function howManyPlys(matrix)
     {

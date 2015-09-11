@@ -178,6 +178,13 @@ $(function() {
             }
             playersTurn = "player1";  
         }
+        else if (ply === 3 && ((ticTacToeMatrix[0][0] === 'X' && ticTacToeMatrix[2][2] === 'X') || (ticTacToeMatrix[2][0] === 'X' && ticTacToeMatrix[0][2] === 'X')))
+        {
+            console.log("sdfsdf");
+            updateBoard(1,2,"blue","O",".eight");
+            playersTurn = "player1";
+
+        }
         else if (!gameOver)
         {
             console.log("Ply move is " + ply);
@@ -212,7 +219,23 @@ $(function() {
                 else if (ticTacToeMatrix[0][2] !== 'X' && ticTacToeMatrix[0][2] !== 'O')
                 {
                     updateBoard(0,2,"blue",'O',".seven");
-                }                 
+                }
+                else if (ticTacToeMatrix[1][2] !== 'X' && ticTacToeMatrix[1][2] !== 'O')
+                {
+                    updateBoard(1,2,"blue",'O',".eight");
+                }
+                else if (ticTacToeMatrix[1][0] !== 'X' && ticTacToeMatrix[1][0] !== 'O')
+                {
+                    updateBoard(1,0,"blue",'O',".two");
+                }
+                else if (ticTacToeMatrix[2][1] !== 'X' && ticTacToeMatrix[2][1] !== 'O')
+                {
+                    updateBoard(2,1,"blue",'O',".six");
+                }
+                else if (ticTacToeMatrix[0][1] !== 'X' && ticTacToeMatrix[0][1] !== 'O')
+                {
+                    updateBoard(0,1,"blue",'O',".four");
+                }               
                 else
                 {
                     playersTurn = "player2";
@@ -232,9 +255,71 @@ $(function() {
     {
         for(var i = 0; i < 3; i ++)
         {
+            var checkRowResult3 = checkRow(i,0,1,2,'O','X');
+            var checkRowResult4 = checkRow(i,0,2,1,'O','X');
+            var checkRowResult5 = checkRow(i,1,2,0,'O','X');
+            var checkColumnResult3 = checkColumn(i,0,1,2,'O','X');
+            var checkColumnResult4 = checkColumn(i,0,2,1,'O','X');
+            var checkColumnResult5 = checkColumn(i,1,2,0,'O','X');
+            var checkDiagonalResult6 = checkDiagonal(0,0,1,1,2,2,'O','X');
+            var checkDiagonalResult7 = checkDiagonal(2,0,1,1,0,2,'O','X');
+            var checkDiagonalResult8 = checkDiagonal(0,0,2,2,1,1,'O','X');
+            var checkDiagonalResult9 = checkDiagonal(2,0,0,2,1,1,'O','X');
+            var checkDiagonalResult10 = checkDiagonal(1,1,2,2,0,0,'O','X');
+            var checkDiagonalResult11 = checkDiagonal(1,1,0,2,2,0,'O','X');
+
+            if (checkRowResult3)
+            {
+                console.log("10");
+                return checkRowResult3;
+            }
+            else if (checkRowResult4)
+            {
+                console.log("11");
+                return checkRowResult4;
+            }
+            else if (checkRowResult5)
+            {
+                console.log("12");
+                return checkRowResult5;
+            }
+            else if (checkColumnResult3)
+            {
+                console.log("13");
+                return checkColumnResult3;
+            }
+            else if (checkColumnResult4)
+            {
+                console.log("14");
+                return checkColumnResult4;
+            }
+            else if (checkColumnResult5)
+            {
+                console.log("15");
+                return checkColumnResult5;
+            }
+            else if (checkDiagonalResult6)
+            {
+                console.log("16");
+                return checkDiagonalResult6;
+            }
+            else if (checkDiagonalResult7)
+            {
+                console.log("17");
+                return checkDiagonalResult7;
+            }
+            else if (checkDiagonalResult8)
+            {
+                console.log("18");
+                return checkDiagonalResult8;
+            }
+        }
+        for(var i = 0; i < 3; i ++)
+        {
             var checkRowResult0 = checkRow(i,0,1,2,'X','O');
             var checkRowResult1 = checkRow(i,0,2,1,'X','O');
             var checkRowResult2 = checkRow(i,1,2,0,'X','O');
+
             var checkColumnResult0 = checkColumn(i,0,1,2,'X','O');
             var checkColumnResult1 = checkColumn(i,0,2,1,'X','O');
             var checkColumnResult2 = checkColumn(i,1,2,0,'X','O');
@@ -243,9 +328,24 @@ $(function() {
             var checkDiagonalResult2 = checkDiagonal(0,0,2,2,1,1,'X','O');
             var checkDiagonalResult3 = checkDiagonal(2,0,0,2,1,1,'X','O');
             var checkDiagonalResult4 = checkDiagonal(1,1,2,2,0,0,'X','O');
-            var checkDiagonalResult3 = checkDiagonal(1,1,0,2,2,0,'X','O');
-
-            if (checkRowResult0)
+            var checkDiagonalResult5 = checkDiagonal(1,1,0,2,2,0,'X','O');
+           
+            if (checkDiagonalResult9)
+            {
+                console.log("8");
+                return checkDiagonalResult3;
+            }
+            else if (checkDiagonalResult9)
+            {
+                console.log("19");
+                return checkDiagonalResult9;
+            }
+            else if (checkDiagonalResult10)
+            {
+                console.log("20");
+                return checkDiagonalResult10;
+            }
+            else if (checkRowResult0)
             {
                 console.log("0");
                 return checkRowResult0;
@@ -296,6 +396,11 @@ $(function() {
                 return checkDiagonalResult3;
             }
             else if (checkDiagonalResult4)
+            {
+                console.log("9");
+                return checkDiagonalResult4;
+            }
+            else if (checkDiagonalResult5)
             {
                 console.log("9");
                 return checkDiagonalResult4;

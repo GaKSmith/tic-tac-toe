@@ -18,7 +18,6 @@ $(function() {
 
             underlinePlayer(playersTurn);
             
-
             if (playersTurn === "player1")
             {
                 var playersChoice = 'X';
@@ -36,12 +35,12 @@ $(function() {
             }
             ticTacToeMatrix[col][row] = playersChoice;
             $(this).text(playersChoice);
-            checkIfThreeInARow();
-            isCatsGame(ticTacToeMatrix);    
             if(playAgainstComputer === 'yes')
             {
                 ai($(this));
             }
+            checkIfThreeInARow();
+            isCatsGame(ticTacToeMatrix);    
         }
     });
 
@@ -212,10 +211,7 @@ $(function() {
                 }
                 else if (ticTacToeMatrix[0][2] !== 'X' && ticTacToeMatrix[0][2] !== 'O')
                 {
-                    ticTacToeMatrix[0][2] = 'O';
-                    $(".seven").text('O');
-                    $(".seven").css("color","blue");
-                    // updateBoard(0,2,"blue",".seven");
+                    updateBoard(0,2,"blue",'O',".seven");
                 }                 
                 else
                 {
@@ -236,18 +232,18 @@ $(function() {
     {
         for(var i = 0; i < 3; i ++)
         {
-            var checkRowResult0 = checkRow(i,0,1,2);
-            var checkRowResult1 = checkRow(i,0,2,1);
-            var checkRowResult2 = checkRow(i,1,2,0);
-            var checkColumnResult0 = checkColumn(i,0,1,2);
-            var checkColumnResult1 = checkColumn(i,0,2,1);
-            var checkColumnResult2 = checkColumn(i,1,2,0);
-            var checkDiagonalResult0 = checkDiagonal(0,0,1,1,2,2);
-            var checkDiagonalResult1 = checkDiagonal(2,0,1,1,0,2);
-            var checkDiagonalResult2 = checkDiagonal(0,0,2,2,1,1);
-            var checkDiagonalResult3 = checkDiagonal(2,0,0,2,1,1);
-            var checkDiagonalResult4 = checkDiagonal(1,1,2,2,0,0);
-            var checkDiagonalResult3 = checkDiagonal(1,1,0,2,2,0);
+            var checkRowResult0 = checkRow(i,0,1,2,'X','O');
+            var checkRowResult1 = checkRow(i,0,2,1,'X','O');
+            var checkRowResult2 = checkRow(i,1,2,0,'X','O');
+            var checkColumnResult0 = checkColumn(i,0,1,2,'X','O');
+            var checkColumnResult1 = checkColumn(i,0,2,1,'X','O');
+            var checkColumnResult2 = checkColumn(i,1,2,0,'X','O');
+            var checkDiagonalResult0 = checkDiagonal(0,0,1,1,2,2,'X','O');
+            var checkDiagonalResult1 = checkDiagonal(2,0,1,1,0,2,'X','O');
+            var checkDiagonalResult2 = checkDiagonal(0,0,2,2,1,1,'X','O');
+            var checkDiagonalResult3 = checkDiagonal(2,0,0,2,1,1,'X','O');
+            var checkDiagonalResult4 = checkDiagonal(1,1,2,2,0,0,'X','O');
+            var checkDiagonalResult3 = checkDiagonal(1,1,0,2,2,0,'X','O');
 
             if (checkRowResult0)
             {
@@ -306,16 +302,17 @@ $(function() {
             }
         }
 
-        function checkRow(index,subIndex1,subIndex2,subIndex3)
+        function checkRow(index,subIndex1,subIndex2,subIndex3,choice1,choice2)
         {
-            if (ticTacToeMatrix[subIndex1][index] === 'X' && ticTacToeMatrix [subIndex2][index] ==='X' && ticTacToeMatrix[subIndex3][index] !=='O')
+            if (ticTacToeMatrix[subIndex1][index] === choice1 && ticTacToeMatrix [subIndex2][index] === choice1 && ticTacToeMatrix[subIndex3][index] !== choice2)
             {
                 return [subIndex3,index];
             }
         }
-        function checkColumn(index,subIndex1,subIndex2,subIndex3)
+
+        function checkColumn(index,subIndex1,subIndex2,subIndex3,choice1,choice2)
         {
-            if (ticTacToeMatrix[index][subIndex1] === 'X' && ticTacToeMatrix [index][subIndex2] ==='X' && ticTacToeMatrix[index][subIndex3] !=='O')
+            if (ticTacToeMatrix[index][subIndex1] === choice1 && ticTacToeMatrix [index][subIndex2] ===choice1 && ticTacToeMatrix[index][subIndex3] !== choice2)
             {
                 return [index,subIndex3];
             }
@@ -327,7 +324,13 @@ $(function() {
                 return [index5,index6];
             }
         }
-
+        function checkDiagonal(index1,index2,index3,index4,index5,index6,choice1,choice2)
+        {
+            if (ticTacToeMatrix[index1][index2] === choice1 && ticTacToeMatrix [index3][index4] === choice1 && ticTacToeMatrix[index5][index6] !== choice2)
+            {
+                return [index5,index6];
+            }
+        }
     }
     function isCatsGame(matrix)
     {

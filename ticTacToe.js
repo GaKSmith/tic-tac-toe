@@ -1,3 +1,4 @@
+TESTTTTT
 var ticTacArray = [0,0,0,0,0,0,0,0,0];
 var ticTacToeMatrix = [['-','-','-'],
                            ['-','-','-'],
@@ -304,33 +305,32 @@ $(function() {
             $(".winner").text("There is no winner");
             $(".player").css("visibility","hidden");
         }
-
     }
     function findCorrespondingElement(col,row)
     {
-//         var returny;
-//         var rowArray = $("*[data-row]");
-//         rowArray.each(function(index,element){
-//             var newArray = $(element);
-//             if (newArray.data("row") === row && newArray.data("column") === col)
-//             {
-//                 // return newArray;
-//                 returny = newArray;
-//             }
-//         });
-//         return returny;
-//     }   
-// });
-//    function howManyPlys(matrix)
-//     {
-//         var howMany = 0;
-//          matrix.forEach(function(subMatrix){
-//              subMatrix.forEach(function(move){
-//                 if (move === "X" || (move === "O"))
-//                 {
-//                     howMany ++;
-//                 }
-//             });
-//          });
-//         return howMany;
+        var returny;
+        var rowArray = $("*[data-row]");
+        rowArray.each(function(index,element){
+            var newArray = $(element);
+            if (newArray.data("row") === row && newArray.data("column") === col)
+            {
+                // return newArray;
+                returny = newArray;
+            }
+        });
+        return returny;
+    }   
+});
+   function howManyPlys(matrix)
+    {
+        var howMany = 0;
+         matrix.forEach(function(subMatrix){
+             subMatrix.forEach(function(move){
+                if (move === "X" || (move === "O"))
+                {
+                    howMany ++;
+                }
+            });
+         });
+        return howMany;
     }

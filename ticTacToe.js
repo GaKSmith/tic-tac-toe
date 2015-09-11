@@ -439,7 +439,7 @@ $(function() {
     }
     function isCatsGame(matrix)
     {
-        if (howManyPlys(matrix) === 9)
+        if (howManyPlys(matrix) === 9 && gameOver === false)
         {
             $(".winner").text("There is no winner");
             $(".player").css("visibility","hidden");

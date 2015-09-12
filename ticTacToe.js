@@ -184,6 +184,18 @@ $(function() {
             playersTurn = "player1";
 
         }
+        else if (ply === 3 && ticTacToeMatrix[1][1] === 'O' && ticTacToeMatrix[1][2] === 'X' && ticTacToeMatrix[2][1] === 'X')
+        {
+            updateBoard(2,2,"blue","O",".nine");
+            playersTurn = "player1";
+
+        }
+        else if (ply === 3 && ticTacToeMatrix[1][1] === 'O' && ticTacToeMatrix[1][2] === 'X' && ticTacToeMatrix[0][1] === 'X')
+        {
+            updateBoard(0,2,"blue","O",".seven");
+            playersTurn = "player1";
+
+        }
         else if (!gameOver)
         {
             console.log("Ply move is " + ply);
